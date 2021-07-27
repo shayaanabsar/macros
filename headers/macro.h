@@ -30,8 +30,6 @@ std::vector<Macro> getMacros(std::string text) {
     auto begin = std::sregex_iterator(text.begin(), text.end(), macroRegex);
     auto end = std::sregex_iterator();
     
-    
-
     for (std::sregex_iterator i = begin; i != end; ++i) {
         std::smatch match = *i;
         std::string s = match.str();
