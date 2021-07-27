@@ -28,6 +28,8 @@ The programme requires a C++ compiler such as g++ to be installed. Once the prog
 ./main input_file
 ```
 
+Alternatively, if you have _make_ installed, you can install the files, _cd_ into the correct directory and then run _make_ which will compile the programme for you.
+
 After running the programme, the macro shorthands will be replaced with their longhands and the macro definitions will be removed to allow you too then compile/interpret your source code using the necessary interpreter/compiler(s) for the language.
 
 
