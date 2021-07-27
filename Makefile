@@ -1,1 +1,2 @@
-g++ main.cpp -o macros
+macros: 
+	g++ main.cpp -o macros
