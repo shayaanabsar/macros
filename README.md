@@ -2,7 +2,7 @@
 
 A programme that enables use of macros in languages that don't support it.
 
-A macro can be thought as a shorthand for a piece of code. They are particularly useful for pieces of code that are often repeated many times.
+A macro can be thought of as a shorthand for a piece of code. They are particularly useful for pieces of code that are often repeated many times.
 
 For example, a for loop in python that iterates 5 times looks like this:
 ``` python
