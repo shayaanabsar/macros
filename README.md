@@ -29,3 +29,7 @@ The programme requires a C++ compiler such as g++ to be installed. Once the prog
 ```
 
 After running the programme, the macro shorthands will be replaced with their longhands and the macro definitions will be removed to allow you too then compile/interpret your source code using the necessary interpreter/compiler(s) for the language.
+
+
+TODO:
+Macros with parameters
