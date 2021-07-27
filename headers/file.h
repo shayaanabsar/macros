@@ -17,3 +17,8 @@ std::string getText(std::string filename) {
     return text;
 }
 
+void rewriteFile(std::string filename, std::string text) {
+    std::ofstream file(filename);
+    file << text;
+    file.close();
+}
