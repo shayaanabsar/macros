@@ -1,2 +1,2 @@
-macros: 
-	g++ main.cpp -o macros
+compile: 
+	g++ main.cpp -o macros.exe
