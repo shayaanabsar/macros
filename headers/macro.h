@@ -21,33 +21,41 @@ std::string escape_special(std::string str) {
     return newStr;
 }
 
+std::string replaceDoubleSpaces(std::string str) {
+    return std::regex_replace(str, std::regex(" {2,}"), " "); // replace multi-spaces with single spaces
+}
+
+Macro makeMacroObject(std::string macroDefinition) {
+    int sp1 = macroDefinition.find(' ');
+    int sp2 = macroDefinition.find(' ', sp1 + 1);
+    
+    std::string shorthand = macroDefinition.substr(sp1 + 1, sp2 - sp1 - 1); // exclusive substring from 1st space to 2nd space
+    std::string longhand = macroDefinition.substr(sp2 + 1, std::string::npos); // exclusive substring from 2nd space to end
+    
+    // Create macro Object
+    
+    Macro macro;
+    
+    macro.shorthand = escape_special(shorthand);
+    macro.longhand = longhand;
+    
+    return macro;
+}
+
 std::vector<Macro> getMacros(std::string text) {
     // Returns a vector of all of the macro definitions
     
     std::vector<Macro> macros;
-    std::regex macroRegex("#define .+ .+");
+    std::regex macroRegex("#define +.+ +.+");
 
     auto begin = std::sregex_iterator(text.begin(), text.end(), macroRegex);
     auto end = std::sregex_iterator();
-    
+
     for (std::sregex_iterator i = begin; i != end; ++i) {
         std::smatch match = *i;
-        std::string s = match.str();
+        std::string macroDefinition = replaceDoubleSpaces(match.str());
         
-        int sp1 = s.find(' ');
-        int sp2 = s.find(' ', sp1 + 1);
-        
-        std::string shorthand = s.substr(sp1 + 1, sp2 - sp1 - 1); // exclusive substring from 1st space to 2nd space
-        std::string longhand = s.substr(sp2 + 1, std::string::npos); // exclusive substring from 2nd space to end
-        
-        // Create new macro and add to vector
-        
-        Macro curr_macro;
-        
-        curr_macro.shorthand = escape_special(shorthand);
-        curr_macro.longhand = longhand;
-        
-        macros.push_back(curr_macro);
+        macros.push_back(makeMacroObject(macroDefinition));
     }
     
     return macros;
