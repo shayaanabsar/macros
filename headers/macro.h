@@ -4,6 +4,7 @@ class Macro {
     public:
         std::string shorthand;
         std::string longhand;
+        std::vector<std::string> parameters;
 };
 
 Macro makeMacroObject(std::string macroDefinition, bool isParameterMacro=false) {
@@ -12,9 +13,16 @@ Macro makeMacroObject(std::string macroDefinition, bool isParameterMacro=false) 
     macro.shorthand = escape_special(getMatches(macroDefinition, std::regex("\\b\\w+\\b")).at(1));
     
     int length = std::string ("#define ").length() + macro.shorthand.length();
-    
+
+    if (isParameterMacro) {
+        std::string parameterStr = getMatches(macroDefinition, std::regex("\\(\\s*\\S+\\s*(?:,\\s*\\S+)*\\)")).at(0);
+        macro.parameters = getMatches(parameterStr, std::regex("\\b\\w+\\b"));
+
+        length += parameterStr.length();
+    }
+
     macro.longhand = macroDefinition.substr(length + 1, std::string::npos);
-  
+    
     return macro;
 }
 
@@ -28,6 +36,14 @@ std::vector<Macro> getMacros(std::string text) {
     
     for (int i = 0; i < matches.size(); i++) {
         macros.push_back(makeMacroObject(matches.at(i)));
+    }
+
+    std::regex parameterMacroRegex("#define +[A-Za-z0-9_]+\\(\\s*\\S+\\s*(?:,\\s*\\S+)*\\) +.+");
+
+    matches = getMatches(text, parameterMacroRegex);
+
+    for (int i = 0; i < matches.size(); i++) {
+        macros.push_back(makeMacroObject(matches.at(i), true));
     }
     
     return macros;
@@ -46,4 +62,3 @@ std::string replaceShorthands(std::string text, std::vector<Macro> macros) {
     
     return text;
 }
-
