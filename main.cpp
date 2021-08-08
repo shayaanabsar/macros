@@ -22,8 +22,10 @@ int main(int argc, char* argv[]) {
         return 0; // Exit Programme if getText returns empty string which indicates the file doesn't exist
     }
     
-    text = replaceShorthands(text,  getMacros(text));
-    text = std::regex_replace(text, std::regex("#define .+ .+"), "");
+    std::vector<Macro> macros = getMacros(text);
+    
+    text = std::regex_replace(text, std::regex("#define +.+ +.+"), "");
+    text = replaceShorthands(text,  macros);
     
     rewriteFile(argv[1], text);
 }

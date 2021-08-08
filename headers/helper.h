@@ -1,7 +1,7 @@
 std::vector<std::string> getMatches(std::string s, std::regex reg) {
 
     std::vector<std::string> matches;
-
+    
     auto begin = std::sregex_iterator(s.begin(), s.end(), reg);
     auto end = std::sregex_iterator();
 
@@ -9,7 +9,6 @@ std::vector<std::string> getMatches(std::string s, std::regex reg) {
         std::smatch match = *i;
         matches.push_back(match.str());
     }
-    
     return matches;
 }
 
