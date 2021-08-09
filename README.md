@@ -22,11 +22,15 @@ Using the example of a python for loop, the macro definition would look like:
 ```C++
 #define f_loop for i in range
 ```
+Macros with parameters can be implemented in the following way:
+```C++
+#define square(x) x * x
+```
+This will replace all instances of _square_ followed by a number in brackets, _x_, with _x * x_.
+
+__Macro shorthands should only consist of alphanumeric characters and underscores.__
 
 To run the porgramme, install _make_, install the files for the programme, _cd_ into the correct directory and then run _make_ which will compile the programme for you. After this you can run _./macro input_file_.
 
 After running the programme, the macro shorthands will be replaced with their longhands and the macro definitions will be removed to allow you too then compile/interpret your source code using the necessary interpreter/compiler(s) for the language.
 
-
-TODO:
-Macros with parameters
